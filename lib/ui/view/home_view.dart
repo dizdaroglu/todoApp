@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/core/api_services.dart';
 import 'package:todoapp/core/model/product.dart';
 import 'package:todoapp/ui/shared/widgets/custom_card.dart';
+import 'package:todoapp/ui/view/add_product_view.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -51,7 +52,38 @@ class _HomeViewState extends State<HomeView> {
       itemCount: productList.length);
 
   Widget get _fabButton => FloatingActionButton(
-        onPressed: () {},
+        onPressed: fabPressed,
         child: Icon(Icons.add),
+      );
+
+  void fabPressed() {
+    showModalBottomSheet(
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(top: Radius.circular(25))),
+        context: context,
+        builder: (context) => bottomSheet);
+  }
+
+  Widget get bottomSheet => Container(
+        height: 100,
+        child: Column(
+          children: <Widget>[
+            Divider(
+              color: Colors.grey,
+              thickness: 2,
+              indent: 100,
+              endIndent: 100,
+            ),
+            RaisedButton(
+              child: Text("Add Product"),
+              onPressed: () {
+                Navigator.pop(context);
+
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => AddProductView()));
+              },
+            ),
+          ],
+        ),
       );
 }
