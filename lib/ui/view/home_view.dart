@@ -44,12 +44,26 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget get _listView => ListView.builder(
-      itemBuilder: (context, index) => CustomCard(
+      itemBuilder: (context, index) => dismiss(
+          CustomCard(
             title: productList[index].productName,
             subtitle: "${productList[index].money}",
             imageURL: productList[index].imageURL,
           ),
+          productList[index].key),
       itemCount: productList.length);
+
+  Widget dismiss(Widget child, String key) {
+    return Dismissible(
+      key: UniqueKey(),
+      child: child,
+      secondaryBackground: Container(color: Colors.red),
+      background: Container(color: Colors.red),
+      onDismissed: (dissmissDirection) async {
+        await service.removeProducts(key);
+      },
+    );
+  }
 
   Widget get _fabButton => FloatingActionButton(
         onPressed: fabPressed,

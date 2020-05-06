@@ -31,6 +31,7 @@ class CustomCard extends StatelessWidget {
             width: 100,
             child: Placeholder(),
           )
-        : Image.network(this.imageURL);
+        : Image.network(
+            "https://source.unsplash.com/1600x900/?nature,$imageURL");
   }
 }
