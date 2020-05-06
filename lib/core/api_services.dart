@@ -43,6 +43,7 @@ class ApiService {
     final jsonBody = json.encode(product.toJson());
 
     final response = await http.post("$_baseURL/products.json", body: jsonBody);
+    Logger().i(response);
 
     final jsonResponse = jsonDecode(response.body);
 
